@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/taskItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:background="@color/bg1_task_grey"
+    android:clickable="true"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutLeft"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/taskThumbnail"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="3dp"
+            android:contentDescription="@string/task_item_description"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitStart"
+            android:src="@drawable/ic_icon_task" />
+
+        <TextView
+            android:id="@+id/tvTimeDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/time_done_default"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editTask"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="10dp"
+        android:layout_toEndOf="@+id/linearLayoutLeft"
+        android:layout_toLeftOf="@+id/editTask"
+        android:layout_toRightOf="@+id/linearLayoutLeft"
+        android:layout_toStartOf="@id/editTask"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_item_name"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_item_status"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/editTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:focusable="false"
+        android:src="@drawable/ic_action_edit" />
+
+</RelativeLayout>

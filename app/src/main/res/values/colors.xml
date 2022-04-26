@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="primary">#8BC34A</color>-->
+    <!--<color name="primary_dark">#689F38</color>-->
+    <!--<color name="primary_light">#DCEDC8</color>-->
+    <!--<color name="accent">#FF9800</color>-->
+    <!--<color name="primary_text">#212121</color>-->
+    <!--<color name="secondary_text">#727272</color>-->
+    <!--<color name="icons">#212121</color>-->
+    <!--<color name="divider">#B6B6B6</color>-->
+
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    <color name="accent">#4CAF50</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+    <!--https://www.materialpalette.com/light-green/orange-->
+
+    <color name="bg1_task_blue">#8A1234DC</color>
+    <color name="bg1_task_orange">#8AFF9800</color>
+    <color name="bg1_task_green">#8A8BC34A</color>
+    <color name="bg1_task_grey">#8AB6B6B6</color>
+
+    <drawable name="blue_color">#8A1234DC</drawable>
+    <drawable name="orange_color">#8AFF9800</drawable>
+    <drawable name="green_color">#8A8BC34A</drawable>
+
+
+
+</resources>

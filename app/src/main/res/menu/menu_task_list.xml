@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.TaskListActivity">
+    <item
+        android:id="@+id/action_statistic"
+        android:enabled="true"
+        android:icon="@drawable/ic_equalizer_white_48dp"
+        android:orderInCategory="100"
+        android:title="@string/action_statistic"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_archive"
+        android:enabled="false"
+        android:orderInCategory="101"
+        android:title="@string/action_archive"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="102"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_exit"
+        android:orderInCategory="103"
+        android:title="@string/action_exit"
+        app:showAsAction="never" />
+</menu>
