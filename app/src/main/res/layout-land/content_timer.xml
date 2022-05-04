@@ -37,7 +37,7 @@
         android:layout_toRightOf="@+id/progressBar"
         android:layout_toEndOf="@+id/progressBar">
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:layout_marginBottom="10dp"
             android:src="@drawable/ic_stop_white_48dp" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabStartPause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

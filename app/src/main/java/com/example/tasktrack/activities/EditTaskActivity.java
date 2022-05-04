@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 public class EditTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private DataSource dataSource;
     private String selectedColor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

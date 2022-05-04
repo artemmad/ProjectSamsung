@@ -18,10 +18,41 @@
         <entry key="..\:/Users/Student-13/AndroidStudioProjects/TaskTrack/app/src/main/res/menu/menu_task_item.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Student-13/AndroidStudioProjects/TaskTrack/app/src/main/res/menu/menu_task_list.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Student-13/AndroidStudioProjects/TaskTrack/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.196" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.124" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/drawable/circular.xml" value="0.124" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/drawable/ic_add_white_24px.xml" value="0.124" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/drawable/ic_launcher_background.xml" value="0.124" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout-land/content_timer.xml" value="0.1" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/activity_edit_task.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/activity_new_task.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/activity_settings.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/activity_statistics.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/activity_task_list.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/activity_timer.xml" value="0.176" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/content_edit_task.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/content_new_task.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/content_settings.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/content_statistics.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/content_task_list.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/content_timer.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/fragment_edit_task.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/fragment_settings.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/fragment_statistics.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/fragment_task_list.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/seekbar_preference.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/statistics_item.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/layout/task_item.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/menu/menu_edit_task.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/menu/menu_settings.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/menu/menu_statistics.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/menu/menu_task_item.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/menu/menu_task_list.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/faer6/AndroidStudioProjects/ProjectSamsung/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.124" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

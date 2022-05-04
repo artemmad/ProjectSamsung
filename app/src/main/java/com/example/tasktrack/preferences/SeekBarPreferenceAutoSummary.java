@@ -3,7 +3,6 @@ package com.example.tasktrack.preferences;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
-
 import androidx.preference.SeekBarPreference;
 
 
@@ -31,23 +30,26 @@ public class SeekBarPreferenceAutoSummary extends SeekBarPreference {
         super(context);
     }
 
+    @Override
     public int getMin() {
         return min;
     }
 
+    @Override
     public void setMin(int min) {
         this.min = min;
     }
 
+    @Override
     public int getMax() {
         return max;
     }
 
     @Override
     public void setMax(int max) {
-        super.setMax(max);
-        this.max = max;
-    }
+          super.setMax(max);
+          this.max = max;
+      }
 
     @Override
     public CharSequence getSummary() {
@@ -55,6 +57,7 @@ public class SeekBarPreferenceAutoSummary extends SeekBarPreference {
         return getSummary(getPersistedInt(1));
     }
 
+//    @Override
     public CharSequence getSummary(int value) {
         String summary = (String) super.getSummary();
         if (summary != null) {
@@ -63,6 +66,8 @@ public class SeekBarPreferenceAutoSummary extends SeekBarPreference {
             return String.valueOf(String.valueOf(value));
         }
     }
+
+
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {

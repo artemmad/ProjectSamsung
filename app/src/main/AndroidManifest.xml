@@ -7,11 +7,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TaskTrack">
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.tasktrack.activities.TaskListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +20,50 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.tasktrack.activities.TimerActivity"
+            android:label="@string/title_activity_timer"
+            android:parentActivityName="com.example.tasktrack.activities.TaskListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.tasktrack.activities.TaskListActivity" />
+        </activity>
+        <activity
+            android:name="com.example.tasktrack.activities.NewTaskActivity"
+            android:label="@string/title_activity_new_task"
+            android:parentActivityName="com.example.tasktrack.activities.TaskListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.tasktrack.activities.TaskListActivity" />
+        </activity>
+        <activity
+            android:name="com.example.tasktrack.activities.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="com.example.tasktrack.activities.TaskListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.tasktrack.activities.TaskListActivity" />
+        </activity>
+        <activity
+            android:name="com.example.tasktrack.activities.EditTaskActivity"
+            android:label="@string/title_activity_edit_task"
+            android:parentActivityName="com.example.tasktrack.activities.TaskListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.tasktrack.activities.TaskListActivity" />
+        </activity>
+        <activity
+            android:name="com.example.tasktrack.activities.StatisticsActivity"
+            android:label="@string/title_activity_statistics"
+            android:parentActivityName="com.example.tasktrack.activities.TaskListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.tasktrack.activities.TaskListActivity" />
+        </activity>
     </application>
-
 </manifest>

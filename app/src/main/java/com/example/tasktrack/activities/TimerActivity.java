@@ -80,7 +80,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         // Get datasource
         dataSource = new DataSource(this);
         fabStartPause = (FloatingActionButton) findViewById(R.id.fabStartPause);

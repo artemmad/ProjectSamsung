@@ -118,9 +118,10 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
 
         return super.onOptionsItemSelected(item);
     }
-
+//ПЕРЕПИСАТЬ
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CODE_NEW_TASK) {
                 // int taskId = data.getExtras().getInt("taskId");

@@ -2,6 +2,9 @@ package com.example.tasktrack.activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.tasktrack.R;
 import com.example.tasktrack.preferences.SeekBarPreferenceAutoSummary;
@@ -40,10 +43,10 @@ public class SettingsActivityFragment extends PreferenceFragment {
         longBreakInterval.setMax(5);
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//
-//        return inflater.inflate(R.layout.fragment_settings, container, false);
-//    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        return inflater.inflate(R.layout.fragment_settings, container, false);
+    }
 }
