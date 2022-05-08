@@ -38,6 +38,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.concurrent.TimeUnit;
 
+
+//TODO: удалить везде эти комментарии и Created by. По шапке можно получить)
+// TODO: Потом приложение на git лучше перезалить сбросив историю изменений. Если не знаешь как - уточни у меня, созвонимся или еще как и обьясню
 /**
  * Created by Mathias Nigsch.
  */
@@ -117,7 +120,7 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         initPomodoro();
         initStopWatch();
 
-        fabStartPause.setOnClickListener(new View.OnClickListener() {
+        fabStartPause.setOnClickListener(new View.OnClickListener() { // TODO: отладить тут. Не правильно запускается таймер. Время не начинает тикать
             @Override
             public void onClick(View v) {
                 switch (currentSelectedTimerMode) {
@@ -134,7 +137,7 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
             }
         });
 
-        fabStop.setOnClickListener(new View.OnClickListener() {
+        fabStop.setOnClickListener(new View.OnClickListener() { // TODO: Стоп похоже тоже не правильно срабатывает. Отладить и девести до ума
             @Override
             public void onClick(View v) {
                 switch (currentSelectedTimerMode) {

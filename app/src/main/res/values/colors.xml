@@ -35,6 +35,6 @@
     <drawable name="orange_color">#8AFF9800</drawable>
     <drawable name="green_color">#8A8BC34A</drawable>
 
-
+<!--TODO: переопределить цвета так что приложение стилизовать. Цвета можно подобрать на https://colorhunt.co/ -->
 
 </resources>

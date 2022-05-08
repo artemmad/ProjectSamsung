@@ -59,3 +59,5 @@
     <string name="statistics_worktime_default">Work: 00h 00m 00s</string>
     <string name="statistics_breaktime_default">Break: 00m 00s</string>
 </resources>
+
+    <!--TODO: в идеале было бы круто еще было бы русифицировать приложение определив ресурсы для русской системы. http://developer.alexanderklimov.ru/android/locale.php-->

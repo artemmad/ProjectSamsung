@@ -37,6 +37,8 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
 
         final Task editTask = dataSource.getTask(getIntent().getExtras().getLong("taskId"));
 
+
+        // TODO: тут нужно с инпутами поковырять. В идеале мы хотим чтобы при вводе 1 часа 123 минут мы получили валидный ввод данных в виде 3 часа 3 минуты. Более трудный вариант это делать инпуты управляемыми и лишние минуты из ввода сразу переносить в часы. Рекоменду просто на сохранении валидно все пересчитывать
         final EditText taskName = (EditText) findViewById(R.id.editTextTaskName);
         final EditText description = (EditText) findViewById(R.id.editTextDescription);
         final EditText estTime = (EditText) findViewById(R.id.editTextEstTime);
