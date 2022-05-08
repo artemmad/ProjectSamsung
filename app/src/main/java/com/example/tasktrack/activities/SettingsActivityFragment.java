@@ -1,13 +1,11 @@
 package com.example.tasktrack.activities;
 
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.tasktrack.R;
-import com.example.tasktrack.preferences.SeekBarPreferenceAutoSummary;
+
 /**
  * Fragment for the preference view.
  */
@@ -32,21 +30,22 @@ public class SettingsActivityFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.preferences);
 
         // Load preference objects and set the maximum (as it is not set via the preference.xml)
-        SeekBarPreferenceAutoSummary workDuration = (SeekBarPreferenceAutoSummary) findPreference("work_duration");
-        SeekBarPreferenceAutoSummary breakDuration = (SeekBarPreferenceAutoSummary) findPreference("break_duration");
-        SeekBarPreferenceAutoSummary longBreakDuration = (SeekBarPreferenceAutoSummary) findPreference("long_break_duration");
-        SeekBarPreferenceAutoSummary longBreakInterval = (SeekBarPreferenceAutoSummary) findPreference("long_break_interval");
+        Preference workDuration = findPreference("work_duration");
+        Preference breakDuration = findPreference("break_duration");
+        Preference longBreakDuration = findPreference("long_break_duration");
+        Preference longBreakInterval = findPreference("long_break_interval");
 
-        workDuration.setMax(40);
-        breakDuration.setMax(10);
-        longBreakDuration.setMax(20);
-        longBreakInterval.setMax(5);
+//        workDuration.setMax(40); //TODO: удалит потом если не нужно
+//        breakDuration.setMax(10);
+//        longBreakDuration.setMax(20);
+//        longBreakInterval.setMax(5);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_settings, container, false);
-    }
+    //TODO: коузило ошибку. Можно будет удалить перед защитой
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//
+//        return inflater.inflate(R.layout.fragment_settings, container, false);
+//    }
 }
