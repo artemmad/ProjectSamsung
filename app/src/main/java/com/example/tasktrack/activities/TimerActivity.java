@@ -1,6 +1,7 @@
 package com.example.tasktrack.activities;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -45,6 +46,7 @@ import java.util.concurrent.TimeUnit;
 public class TimerActivity extends AppCompatActivity implements TimerSelectionDialogFragment.TimerSelectionDialogListener {
     private static final long VIBRATE_DURATION = 500;
     private static final String LOGTAG = "TimerActivity";
+    private static final String CHANNEL_ID = "Timer_Notification";
 
     private boolean isInForegroundMode = false;
 
@@ -76,6 +78,9 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
+
+        //create the notification channel for the app
+        createNotificationChannel();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -408,14 +413,29 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         notificationManager.notify(workTimerNotificationId, builder.build());
     }
 
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_desc);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
     private void notifiyTimer(String title, String description, long taskId, int percent) {
 
         if (builder != null) {
             updateTimerNotification(description, percent);
             return;
         }
-        String channelID = "";
-        builder = new NotificationCompat.Builder(this, "channelID");
+        builder = new NotificationCompat.Builder(this, CHANNEL_ID);
         builder.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(description)

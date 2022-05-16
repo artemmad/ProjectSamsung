@@ -58,6 +58,8 @@
     <string name="statistic_timestamp_default">2022-02-24 13:38:51.0</string>
     <string name="statistics_worktime_default">Работа: 00h 00m 00s</string>
     <string name="statistics_breaktime_default">Перерыв: 00m 00s</string>
+    <string name="channel_name">timer</string>
+    <string name="channel_desc">Notifications for timer app</string>
 </resources>
 
     <!--TODO: в идеале было бы круто еще было бы русифицировать приложение определив ресурсы для русской системы. http://developer.alexanderklimov.ru/android/locale.php-->
