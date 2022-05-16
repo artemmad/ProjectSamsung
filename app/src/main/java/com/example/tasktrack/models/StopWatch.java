@@ -3,10 +3,7 @@ package com.example.tasktrack.models;
 import android.os.SystemClock;
 import android.widget.Chronometer;
 
-/**
- * Represents a stopwatch using a chronometer.
- * Created by Mathias Nigsch on 22/02/2016.
- */
+
 public class StopWatch {
     public interface OnBeforeStartListener {
         void onBeforeStart();
@@ -26,7 +23,6 @@ public class StopWatch {
     }
 
     private void init() {
-        // http://stackoverflow.com/questions/4897665/android-chronometer-format
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             public void onChronometerTick(Chronometer c) {
                 currentMeasuredTime = SystemClock.elapsedRealtime() - c.getBase();
@@ -43,11 +39,9 @@ public class StopWatch {
     public void start() {
         onBeforeStartListener.onBeforeStart();
 
-        // on first start
         if (lastStopTime == 0) {
             chronometer.setFormat("00:%s");
             chronometer.setBase(SystemClock.elapsedRealtime());
-            // on resume after pause
         } else {
             long intervalOnPause = (SystemClock.elapsedRealtime() - lastStopTime);
             chronometer.setBase(chronometer.getBase() + intervalOnPause);

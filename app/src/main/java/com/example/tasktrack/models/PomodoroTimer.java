@@ -19,9 +19,6 @@ import com.example.tasktrack.R;
 import java.util.concurrent.TimeUnit;
 
 
-/**
- * Created by Mathias Nigsch on 22/02/2016.
- */
 public class PomodoroTimer {
     private Chronometer chronometer;
 
@@ -119,8 +116,6 @@ public class PomodoroTimer {
                 if (breakTimerEvents != null) {
                     breakTimerEvents.onFinish();
                 }
-                // TODO: check
-                // currentBreakTime = 0;
             }
         };
     }
@@ -138,13 +133,6 @@ public class PomodoroTimer {
                 if (workTimerEvents != null) {
                     workTimerEvents.onTick(millisUntilFinished);
                 }
-
-                //LayerDrawable ld = (LayerDrawable) progressBar.getProgressDrawable();
-                // GradientDrawable sd = (GradientDrawable) ld.getDrawable(1);sd.setColor(Color.argb(100, 40, 100, 20));
-                //sd.setColor((int) millisUntilFinished);
-                //sd.getPaint().setColor((int) millisUntilFinished);
-                //  Shader shader = new LinearGradient(0, 0, 0, progressBar.getHeight(), Color.WHITE, Color.BLACK, Shader.TileMode.CLAMP);
-                // sd.getPaint().s
             }
 
             @Override
@@ -153,7 +141,7 @@ public class PomodoroTimer {
                 tvTime.setText(R.string.timer_finished_text);
 
                 if (tvTimeSubtitle != null) {
-                    tvTimeSubtitle.setText("Work time up");
+                    tvTimeSubtitle.setText("Время работы окончено");
                 }
 
                 tvTime.setAnimation(getBlinkAnimation());
@@ -166,7 +154,6 @@ public class PomodoroTimer {
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
 
-                // currentWorkTime = 0;
             }
         };
     }
@@ -182,7 +169,6 @@ public class PomodoroTimer {
         progressBarAnimation.setInterpolator(new LinearInterpolator());
         progressBarAnimation.start();
 
-        // Set new countdowntimer
         countDownWorkTimer = getCountdownWorkTimer(1000 * 60 * workDuration);
         countDownWorkTimer.start();
     }
@@ -195,11 +181,10 @@ public class PomodoroTimer {
         currentBreakTime = 0;
 
         if (isLongBreakEnabled() && isLongBreak()) {
-            // Long break -> change sub title
-            progressBarAnimation.setDuration(1000 * 60 * longBreakDuration); //in milliseconds
+            progressBarAnimation.setDuration(1000 * 60 * longBreakDuration);
             countDownBreakTimer = getCountDownBreakTimer(1000 * 60 * longBreakDuration);
         } else {
-            progressBarAnimation.setDuration(1000 * 60 * breakDuration); //in milliseconds
+            progressBarAnimation.setDuration(1000 * 60 * breakDuration);
             countDownBreakTimer = getCountDownBreakTimer(1000 * 60 * breakDuration);
         }
 
@@ -211,7 +196,6 @@ public class PomodoroTimer {
 
     public void skipBreak() {
         status = TimerStatus.WORK;
-        // Skip break
         countDownBreakTimer.cancel();
         progressBarAnimation.end();
         startWork();
@@ -252,13 +236,12 @@ public class PomodoroTimer {
         }
     }
 
-    // http://stackoverflow.com/questions/23426201/flashing-textview-background-in-android-for-1-second-only-once
     public static Animation getBlinkAnimation() {
-        Animation animation = new AlphaAnimation(1, 0);         // Change alpha from fully visible to invisible
-        animation.setDuration(BLINK_DURATION);                             // duration - half a second
-        animation.setInterpolator(new LinearInterpolator());    // do not alter animation rate
-        animation.setRepeatCount(Animation.INFINITE);                            // Repeat animation infinitely
-        animation.setRepeatMode(Animation.REVERSE);             // Reverse animation at the end so the button will fade back in
+        Animation animation = new AlphaAnimation(1, 0);
+        animation.setDuration(BLINK_DURATION);
+        animation.setInterpolator(new LinearInterpolator());
+        animation.setRepeatCount(Animation.INFINITE);
+        animation.setRepeatMode(Animation.REVERSE);
         return animation;
     }
 

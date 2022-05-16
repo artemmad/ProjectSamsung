@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
@@ -41,11 +42,6 @@ import java.util.concurrent.TimeUnit;
 
 //TODO: удалить везде эти комментарии и Created by. По шапке можно получить)
 // TODO: Потом приложение на git лучше перезалить сбросив историю изменений. Если не знаешь как - уточни у меня, созвонимся или еще как и обьясню
-/**
- * Created by Mathias Nigsch.
- */
-// Use following technique to run the timer
-// http://developer.android.com/guide/components/services.html
 public class TimerActivity extends AppCompatActivity implements TimerSelectionDialogFragment.TimerSelectionDialogListener {
     private static final long VIBRATE_DURATION = 500;
     private static final String LOGTAG = "TimerActivity";
@@ -83,7 +79,7 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Get datasource
+
         dataSource = new DataSource(this);
         fabStartPause = (FloatingActionButton) findViewById(R.id.fabStartPause);
         fabStop = (FloatingActionButton) findViewById(R.id.fabStop);
@@ -91,10 +87,8 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         loadSharedPreferences();
         currentSelectedTimerMode = TimerMode.values()[timerMode.ordinal()];
 
-        // Get the task to work with
         task = dataSource.getTask(getIntent().getExtras().getLong("taskId"));
 
-        // Load view items
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         tvTimeChrono = (Chronometer) findViewById(R.id.tvTimeChrono);
         tvTimeSubtitle = (TextView) findViewById(R.id.tvTimeSubtitle);
@@ -109,18 +103,16 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         }
 
         if (timerMode == TimerMode.POMODORO) {
-            // Set time remaining
             long millis = TimeUnit.MINUTES.toMillis(workDuration);
             tvTimeChrono.setText(PomodoroTimer.getTimeString(millis));
         }
 
-        // Initialize timers
         stopWatch = new StopWatch(tvTimeChrono);
         pomodoroTimer = new PomodoroTimer(dummyChronometer, progressBar, tvTimeChrono);
         initPomodoro();
         initStopWatch();
 
-        fabStartPause.setOnClickListener(new View.OnClickListener() { // TODO: отладить тут. Не правильно запускается таймер. Время не начинает тикать
+        fabStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (currentSelectedTimerMode) {
@@ -137,7 +129,7 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
             }
         });
 
-        fabStop.setOnClickListener(new View.OnClickListener() { // TODO: Стоп похоже тоже не правильно срабатывает. Отладить и девести до ума
+        fabStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (currentSelectedTimerMode) {
@@ -159,8 +151,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
                                 || status == TimerStatus.WAIT_FOR_WORK) {
                             stopPomodoro();
                         } else {
-
-                            // Ask user if he really wants to stop timer (e.g. if work time or work break
                             Toast.makeText(TimerActivity.this, "No timer running.", Toast.LENGTH_SHORT).show();
                         }
                         break;
@@ -171,29 +161,21 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    /**
-     * Gets the current selected timer mode.
-     */
+
     private void getCurrentSelectedMode() {
         currentSelectedTimerMode = TimerMode.values()[timerMode.ordinal()];
     }
 
-    /**
-     * Stops the pomodoro timer.
-     */
     private void stopPomodoro() {
         status = TimerStatus.WAIT_FOR_WORK;
         tvTimeSubtitle.setText(R.string.activity_timer_subtitle_work);
         setFABIcon(fabStartPause, R.drawable.ic_play_arrow_white_48dp);
         pomodoroTimer.stop();
         updateTask(task);
-        createStatisticLog("Work", "Work time stopped.", 1000, 500);
+        createStatisticLog("Work", "Work time is finished", 1000, 500);
         getCurrentSelectedMode();
     }
 
-    /**
-     * Shows a dialog to prevent stopping of the pomodoro timer.
-     */
     private void dialogStopPomodoro() {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(TimerActivity.this);
@@ -215,17 +197,11 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
 
         alert.show();
     }
-
-    /**
-     * Initializes the pomodoro timer with event handlers.
-     */
     private void initPomodoro() {
         updatePomodoroSettings();
         pomodoroTimer.setBreakTimerEvents(new PomodoroTimer.CountDownTimerEvent() {
             @Override
             public void onTick(long millisUntilFinished) {
-                // Nothing to do
-                // notifiyTimer(getString(R.string.activity_timer_subtitle_work), "Task: " + task.getName(), task.getId(), 0);
             }
 
             @Override
@@ -234,13 +210,11 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
 
                 setFABIcon(fabStartPause, R.drawable.ic_play_arrow_white_48dp);
                 if (vibrationEnabled) {
-                    // Vibrate on countdown finished
                     Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                     vibrator.vibrate(VIBRATE_DURATION);
                 }
 
                 if (notificationEnabled && !isInForeground()) {
-                    //  notifiyTimer(getString(R.string.pomodoro_break_up), "Task: " + task.getName(), task.getId(), 100);
                 }
 
                 status = TimerStatus.WAIT_FOR_WORK;
@@ -250,7 +224,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         pomodoroTimer.setWorkTimerEvents(new PomodoroTimer.CountDownTimerEvent() {
             @Override
             public void onTick(long millisUntilFinished) {
-                // Update task time
                 task.setTimeDone(task.getTimeDone() + 1);
                 updateTask(task);
 
@@ -259,7 +232,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
 
             @Override
             public void onFinish() {
-                // Update time one last time
                 task.setTimeDone(task.getTimeDone() + 1);
                 updateTask(task);
                 createStatisticLog("Work", "Work time finished.", 1000, 500);
@@ -274,7 +246,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
 
                 setFABIcon(fabStartPause, R.drawable.ic_free_breakfast_white_48dp);
                 if (vibrationEnabled) {
-                    // Vibrate on countdown finished
                     Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                     vibrator.vibrate(VIBRATE_DURATION);
                 }
@@ -285,17 +256,12 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         pomodoroTimer.setOverflowStopWatchEvent(new PomodoroTimer.OverflowStopWatchEvent() {
             @Override
             public void onTick(long baseTime, long difference) {
-                // Update task time
-                //task.setTimeDone(pomodoroTimer.getCurrentWorkTime());
                 task.setTimeDone(task.getTimeDone() + difference);
                 updateTask(task);
             }
         });
     }
 
-    /**
-     * Updates the pomodoro settings.
-     */
     private void updatePomodoroSettings() {
         pomodoroTimer.setBreakDuration(breakDuration);
         pomodoroTimer.setWorkDuration(workDuration);
@@ -304,9 +270,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         pomodoroTimer.setLongBreakEnabled(longBreakEnabled);
     }
 
-    /**
-     * Loads preferences to use them in this activity.
-     */
     private void loadSharedPreferences() {
         sharedPreferences = getSharedPreferences(SettingsActivityFragment.SETTINGS_SHARED_PREFERENCES_FILE_NAME, MODE_PRIVATE);
         timerMode = fromString(sharedPreferences.getString("timer_mode", "ask"));
@@ -321,7 +284,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         sharedPreferences.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                // react to break and work duration
                 switch (key) {
                     case "work_duration":
                         workDuration = sharedPreferences.getInt("work_duration", 25);
@@ -336,10 +298,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
             }
         });
     }
-
-    /**
-     * Initalizes the stop watch via the event handler.
-     */
     private void initStopWatch() {
         stopWatch.setOnBeforeStartListener(new StopWatch.OnBeforeStartListener() {
             @Override
@@ -350,16 +308,12 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         stopWatch.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
-                // task.setTimeDone(task.getTimeDone() + 1);
                 task.setTimeDone(startTimeValue + (stopWatch.getCurrentMeasuredTime() / 1000));
                 updateTask(task);
             }
         });
     }
 
-    /**
-     * Handles the button "StartPause" in stop watch mode.
-     */
     private void handleStartPauseStopWatch() {
         if (status == TimerStatus.WAIT_FOR_WORK) {
             status = TimerStatus.WORK;
@@ -379,9 +333,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         }
     }
 
-    /**
-     * Handles the button "StartPause" in pomodoro mode.
-     */
     private void handleStartPausePomodoro() {
         if (status == TimerStatus.WAIT_FOR_WORK) {
             status = TimerStatus.WORK;
@@ -394,10 +345,8 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
             setFABIcon(fabStartPause, R.drawable.ic_skip_next_white_48dp);
             pomodoroTimer.startBreak();
         } else if (status == TimerStatus.BREAK) {
-            // Skip break
             pomodoroTimer.skipBreak();
 
-            // Restart work timer
             status = TimerStatus.WORK;
             tvTimeSubtitle.setText(R.string.activity_timer_subtitle_work);
             setFABIcon(fabStartPause, R.drawable.ic_pause_white_48dp);
@@ -416,14 +365,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         tvTimeChrono.setAnimation(null);
     }
 
-    /**
-     * Creates a new statistic log.
-     *
-     * @param action    The action which is done (e.g. Work, Break, ...)
-     * @param message   The message for the statistic.
-     * @param workTime  The time of work done when creating the statistic log.
-     * @param breakTime The amount of break time done when creating the statistic log.
-     */
     private void createStatisticLog(String action, String message, long workTime, long breakTime) {
         StatisticLog statisticLog = new StatisticLog();
         statisticLog.setTask(task);
@@ -434,18 +375,10 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         dataSource.createStatisticLog(statisticLog);
     }
 
-    /**
-     * Creates a status test from a task.
-     *
-     * @param task The task to get the status from.
-     * @return A formated string of the current status.
-     */
     public static String getStatusText(Task task) {
-        return String.format("%s spent", getFriendlyTimeString(TimeUnit.SECONDS.toMillis(task.getTimeDone()), false, true));
+        return String.format("%s затрачено", getFriendlyTimeString(TimeUnit.SECONDS.toMillis(task.getTimeDone()), false, true));
     }
 
-    // TODO: Create a better approach to convert from string to enum
-    // http://stackoverflow.com/questions/9742050/is-there-an-enum-string-resource-lookup-pattern-for-android
     private TimerMode fromString(String mode) {
         TimerMode modus;
         switch (mode) {
@@ -481,26 +414,20 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
             updateTimerNotification(description, percent);
             return;
         }
-        // TODO
-        // http://stackoverflow.com/questions/14885368/update-text-of-notification-not-entire-notification
-
-        builder = new NotificationCompat.Builder(this);
+        String channelID = "";
+        builder = new NotificationCompat.Builder(this, "channelID");
         builder.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
-                .setContentText(description).setProgress(500, 0, true);
+                .setContentText(description)
+                .setProgress(500, 0, true);
 
-        // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, TimerActivity.class);
         resultIntent.putExtra("taskId", taskId);
 
-        // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        // Adds the back stack for the Intent (but not the Intent itself)
+
         stackBuilder.addParentStack(TimerActivity.class);
-        // Adds the Intent that starts the Activity to the top of the stack
+
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
@@ -514,11 +441,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         notificationManager.notify(workTimerNotificationId, builder.build());
     }
 
-    /**
-     * Updates the task and sets the status text.
-     *
-     * @param task The task to update.
-     */
     private void updateTask(Task task) {
         tvTaskStatus.setText(getStatusText(task));
         dataSource.updateTask(task);
@@ -538,16 +460,14 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_task_list, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         switch (id) {
@@ -587,8 +507,7 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
     }
 
     public void showTimerModeSelectionDialog() {
-        // Create an instance of the dialog fragment and show it
-        DialogFragment dialog = new DialogFragment();
+        DialogFragment dialog = new TimerSelectionDialogFragment();
         dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
     }
 
@@ -619,11 +538,6 @@ public class TimerActivity extends AppCompatActivity implements TimerSelectionDi
         isInForegroundMode = true;
     }
 
-    /**
-     * Checks if the activity is in foreground.
-     *
-     * @return
-     */
     public boolean isInForeground() {
         return isInForegroundMode;
     }

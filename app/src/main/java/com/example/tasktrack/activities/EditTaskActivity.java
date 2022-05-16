@@ -41,8 +41,8 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
         // TODO: тут нужно с инпутами поковырять. В идеале мы хотим чтобы при вводе 1 часа 123 минут мы получили валидный ввод данных в виде 3 часа 3 минуты. Более трудный вариант это делать инпуты управляемыми и лишние минуты из ввода сразу переносить в часы. Рекоменду просто на сохранении валидно все пересчитывать
         final EditText taskName = (EditText) findViewById(R.id.editTextTaskName);
         final EditText description = (EditText) findViewById(R.id.editTextDescription);
-        final EditText estTime = (EditText) findViewById(R.id.editTextEstTime);
-        final EditText estTimeHours = (EditText) findViewById(R.id.editTextEstTimeHours);
+        final EditText estTime = (EditText) findViewById(R.id.editTextEstTimeHours);
+        final EditText estTimeHours = (EditText) findViewById(R.id.editTextEstTime);
         final EditText doneTimeMinutes = (EditText) findViewById(R.id.editTextTimeDone);
         final EditText doneTimeHours = (EditText) findViewById(R.id.editTextTimeDoneHours);
         final Spinner colorSpinner = (Spinner) findViewById(R.id.spinnerColor);
@@ -55,14 +55,11 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
         doneTimeHours.setText(String.valueOf((int) TimeUnit.SECONDS.toHours(editTask.getTimeDone())));
         doneTimeMinutes.setText(String.valueOf(TimeUnit.SECONDS.toMinutes(editTask.getTimeDone() % 3600)));
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.background_colors, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         colorSpinner.setAdapter(spinnerAdapter);
         colorSpinner.setOnItemSelectedListener(this);
-        // Get selected color value for spinner
         Resources res = getResources();
         String[] answers = res.getStringArray(R.array.background_colors_values);
         selectedColor = "#" + Integer.toHexString(editTask.getColor()).toUpperCase();
@@ -87,9 +84,6 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
                 editTask.setDescription(description.getText().toString());
 
                 editTask.setSubTasks(new ArrayList<SubTask>());
-                /*for (String subtask : subTasks) {
-                    task.getSubTasks().add(new SubTask(subtask));
-                }*/
                 if (!estTime.getText().toString().isEmpty() || !estTimeHours.getText().toString().isEmpty()) {
                     int minutes = 0;
                     if (!estTime.getText().toString().isEmpty()) {
@@ -123,10 +117,9 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
 
                 editTask.setColor(Color.parseColor(selectedColor));
 
-                // Update task
                 dataSource.updateTask(editTask);
 
-                // Create intent and set result
+
                 Intent data = new Intent();
                 data.putExtra("taskId", editTask.getId());
                 setResult(RESULT_OK, data);

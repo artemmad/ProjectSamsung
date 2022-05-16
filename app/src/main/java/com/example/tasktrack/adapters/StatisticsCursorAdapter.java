@@ -22,9 +22,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Mathias on 20/02/2016.
- */
 public class StatisticsCursorAdapter extends CursorAdapter implements View.OnCreateContextMenuListener {
     private static final String LOGTAG = "TASKTRACKER";
     private LayoutInflater cursorInflater;
@@ -52,7 +49,6 @@ public class StatisticsCursorAdapter extends CursorAdapter implements View.OnCre
         final StatisticLog statisticLog = DataSource.cursorToStatisticLog(cursor);
 
         if (view.getTag() == null) {
-            // Lookup view for data population
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {
@@ -90,14 +86,9 @@ public class StatisticsCursorAdapter extends CursorAdapter implements View.OnCre
         TextView breakTime;
         TextView timeStamp;
 
-        /**
-         * Initialize the holder.
-         *
-         * @param view The view to populate the objects from.
-         */
         public ViewHolder(View view) {
             action = (TextView) view.findViewById(R.id.tvAction);
-            // message = (TextView) view.findViewById(R.id.mes);
+
             workTime = (TextView) view.findViewById(R.id.tvWorkTime);
             breakTime = (TextView) view.findViewById(R.id.tvBreakTime);
             taskName = (TextView) view.findViewById(R.id.tvTaskName);
@@ -112,7 +103,6 @@ public class StatisticsCursorAdapter extends CursorAdapter implements View.OnCre
             Date netDate = (new Date(statisticLog.getTime().getTime()));
             timeStamp.setText(sdf.format(netDate));
 
-            // Get time done in hours and minutes
             long hours = TimeUnit.SECONDS.toHours(statisticLog.getWorkTime());
             long remainMinute = TimeUnit.SECONDS.toMinutes(statisticLog.getWorkTime()) - TimeUnit.HOURS.toMinutes(hours);
             String result = String.format("Work: %sh %sm", String.format("%01d", hours), String.format("%01d", remainMinute));

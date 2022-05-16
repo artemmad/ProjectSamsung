@@ -2,9 +2,6 @@ package com.example.tasktrack.database;
 
 import android.provider.BaseColumns;
 
-/**
- * Created by Mathias Nigsch on 18/02/2016.
- */
 public final class TaskTrackerContract {
     // To prevent someone from accidentally instantiating the contract class,
     // give it an empty constructor.
@@ -37,9 +34,6 @@ public final class TaskTrackerContract {
                 COLUMN_NAME_IS_DONE};
     }
 
-    /**
-     * Represents columns for the sub task model.
-     */
     public static abstract class SubTaskEntry implements BaseColumns {
         public static final String TABLE_NAME = "subtask";
         public static final String COLUMN_NAME_NAME = "name";
@@ -53,14 +47,11 @@ public final class TaskTrackerContract {
                 COLUMN_NAME_IS_DONE};
     }
 
-    /**
-     * Represents columns for the statistic log model.
-     */
     public static abstract class StatisticLogEntry implements BaseColumns {
         public static final String TABLE_NAME = "statistics";
         public static final String COLUMN_NAME_TASK = "taskId";
         public static final String COLUMN_NAME_TIME = "timeStamp";
-        public static final String COLUMN_NAME_ACTION = "action";
+        public static final String COLUMN_NAME_ACTION = "nameAction";
         public static final String COLUMN_NAME_MESSAGE = "message";
         public static final String COLUMN_NAME_WORK_TIME = "workTime";
         public static final String COLUMN_NAME_BREAK_TIME = "breakTime";

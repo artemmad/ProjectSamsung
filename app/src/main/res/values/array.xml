@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="timer_modes">
-        <item>Ask before start</item>
-        <item>Pomodoro Timer</item>
-        <item>Stopwatch Timer</item>
+        <item>Спрашивать перед стартом</item>
+        <item>Pomodoro таймер</item>
+        <item>Секундомер</item>
     </string-array>
     <string-array name="timer_mode_values">
         <item>ask</item>
@@ -11,10 +11,9 @@
         <item>stopwatch</item>
     </string-array>
 
-    <!-- http://stackoverflow.com/questions/10196015/android-is-it-possible-to-define-a-map-in-an-xml-file -->
     <string-array name="timer_mode_dialog_items">
-        <item>Pomodoro Timer</item>
-        <item>Stopwatch Timer</item>
+        <item>Pomodoro таймер</item>
+        <item>Секундомер</item>
     </string-array>
     <string-array name="timer_mode_dialog_items_values">
         <item>pomodoro</item>
@@ -22,11 +21,11 @@
     </string-array>
 
     <string-array name="background_colors">
-        <item value="#8AB6B6B6">Grey</item>
-        <item value="#8A1234DC">Blue</item>
-        <item value="#8A8BC34A">Green</item>
-        <item value="#8AFF9800">Orange</item>
-        <item value="#8ac34a50">Red</item>
+        <item value="#8AB6B6B6">Серый</item>
+        <item value="#8A1234DC">Синий</item>
+        <item value="#8A8BC34A">Зеленый</item>
+        <item value="#8AFF9800">Оранжевый</item>
+        <item value="#8ac34a50">Красный</item>
     </string-array>
     <string-array name="background_colors_values">
         <item>#8AB6B6B6</item>

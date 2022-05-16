@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- http://tech.taskrabbit.com/blog/2014/11/07/android-custom-progress-view/ -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape
@@ -18,7 +17,7 @@
             android:thickness="13sp"
             android:useLevel="true">
             <gradient
-                android:centerColor="@color/primary"
+                android:centerColor="#9900F0"
                 android:endColor="@color/primary"
                 android:startColor="#f33d21"
                 android:type="sweep" />

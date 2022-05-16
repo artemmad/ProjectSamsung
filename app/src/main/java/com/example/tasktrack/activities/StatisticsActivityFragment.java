@@ -10,9 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.example.tasktrack.R;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class StatisticsActivityFragment extends Fragment {
 
     public StatisticsActivityFragment() {

@@ -2,9 +2,6 @@ package com.example.tasktrack.models;
 
 import java.io.Serializable;
 
-/**
- * Created by Mathias Nigsch on 11/02/2016.
- */
 public class SubTask implements Serializable {
     private long id;
     private String name;

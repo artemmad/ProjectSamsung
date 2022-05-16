@@ -1,77 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Timer">
+    <PreferenceCategory android:title="Таймер">
         <ListPreference
             android:defaultValue="ask"
             android:entries="@array/timer_modes"
             android:entryValues="@array/timer_mode_values"
             android:key="timer_mode"
             android:summary="%s"
-            android:title="Timer Mode" />
+            android:title="Выбор таймера" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Pomodoro Timer">
+    <PreferenceCategory android:title="Pomodoro таймер">
         <SeekBarPreference
             android:defaultValue="25"
             android:key="work_duration"
             android:max="60"
-            android:summary="%s minutes of work"
-            android:title="Work Duration" />
+            android:summary="%с минут работы"
+            android:title="Длительность работы" />
         <SeekBarPreference
             android:defaultValue="5"
             android:key="break_duration"
             android:max="10"
-            android:summary="%s minutes of break"
-            android:title="Break Duration" />
-
-        <!--<EditTextPreference-->
-        <!--android:defaultValue="25"-->
-        <!--android:inputType="number"-->
-        <!--android:key="work_duration"-->
-        <!--android:maxLength="2"-->
-        <!--android:numeric="integer"-->
-        <!--android:title="Work Duration" />-->
+            android:summary="%с минут перерыва"
+            android:title="Длительность перерыва" />
 
         <SwitchPreference
             android:defaultValue="true"
             android:key="long_break_enabled"
-            android:title="Long Break Enabled" />
+            android:title="Большой перерыв включен" />
         <SeekBarPreference
             android:defaultValue="4"
             android:dependency="long_break_enabled"
             android:key="long_break_interval"
             android:max="6"
-            android:summary="%s Cycles before long break"
-            android:title="Long Break Interval" />
+            android:summary="%с Циклов перед большим перерывом"
+            android:title="Интервал большого перерыва" />
         <SeekBarPreference
             android:defaultValue="15"
             android:dependency="long_break_enabled"
             android:key="long_break_duration"
             android:max="20"
-            android:summary="%s minutes of long break"
-            android:title="Long Break Duration" />
-        <!--<EditTextPreference-->
-        <!--android:defaultValue="15"-->
-        <!--android:key="long_break_duration"-->
-        <!--android:numeric="integer"-->
-        <!--android:title="Long Break Duration" />-->
+            android:summary="%с минут большого перерыва"
+            android:title="Длительность большого перерыва" />
+
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Notification">
+    <PreferenceCategory android:title="Уведомления">
         <SwitchPreference
             android:defaultValue="true"
             android:key="vibration_enabled"
-            android:title="Vibration" />
+            android:title="Вибрация" />
         <SwitchPreference
             android:defaultValue="false"
             android:key="notification_enabled"
-            android:title="Sound" />
+            android:title="Мелодия" />
         <RingtonePreference
             android:dependency="notification_enabled"
             android:key="sound_title"
             android:ringtoneType="notification"
             android:showDefault="true"
-            android:title="Notification Sound" />
+            android:title="Мелодия уведомлений" />
     </PreferenceCategory>
 </PreferenceScreen>

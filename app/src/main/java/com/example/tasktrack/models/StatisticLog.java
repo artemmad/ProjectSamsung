@@ -2,9 +2,6 @@ package com.example.tasktrack.models;
 
 import java.sql.Timestamp;
 
-/**
- * Created by Mathias Nigsch on 24/02/2016.
- */
 public class StatisticLog {
     private long id;
     private Task task;

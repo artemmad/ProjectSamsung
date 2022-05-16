@@ -28,7 +28,6 @@ public class StatisticsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         dataSource = new DataSource(this);
-        // Get list and set empty view
         listView = (ListView) findViewById(R.id.listViewStatistics);
         TextView emptyView = (TextView) findViewById(R.id.statistic_list_empty);
         listView.setEmptyView(emptyView);
@@ -42,9 +41,6 @@ public class StatisticsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    /**
-     * Updates the list view with data from the database.
-     */
     private void updateStatistics() {
         new UpdateStatisticTask().execute();
     }

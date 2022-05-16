@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-/**
- * Created by Mathias Nigsch on 06/02/2016.
- */
+
 public class Task implements Serializable {
     private long id;
     private String name;
@@ -18,8 +16,6 @@ public class Task implements Serializable {
     private String description;
     private boolean archived;
     private Timestamp createdTime;
-
-    //TODO: add created and modified datetime
 
     public String getDescription() {
         return description;

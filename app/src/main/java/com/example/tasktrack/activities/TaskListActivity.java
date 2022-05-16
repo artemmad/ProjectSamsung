@@ -1,5 +1,6 @@
 package com.example.tasktrack.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,8 +17,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 
 import com.example.tasktrack.R;
 import com.example.tasktrack.adapters.TaskListCursorAdapter;
@@ -35,9 +41,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
     private DataSource dataSource;
     private TaskListCursorAdapter cursorAdapter;
     private ListView listViewTasks;
-
-    // Think about using recycling view: http://developer.android.com/training/material/lists-cards.html
-    // https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
+    ActivityResultLauncher<Intent> someActivityResultLauncher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,19 +50,26 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Get list and set empty view
         listViewTasks = (ListView) findViewById(R.id.listViewTasks);
         TextView emptyView = (TextView) findViewById(R.id.main_list_empty);
         listViewTasks.setEmptyView(emptyView);
 
         registerForContextMenu(listViewTasks);
-
         dataSource = new DataSource(this);
         cursorAdapter = new TaskListCursorAdapter(this, dataSource.getAllTasksCursor(), 0);
         cursorAdapter.setCallback(this);
 
         listViewTasks.setAdapter(cursorAdapter);
-        // Not working
+        someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                                updateTaskListView();
+                        }
+                    }
+                });
         listViewTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -68,9 +79,6 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
 
     }
 
-    /**
-     * Updates the list view with data from the database.
-     */
     private void updateTaskListView() {
         new UpdateTaskListTask().execute();
     }
@@ -89,22 +97,18 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_task_list, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         switch (id) {
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_SETTINGS);
+                someActivityResultLauncher.launch(intent);
                 return true;
             case R.id.action_statistic:
                 Intent intent2 = new Intent(this, StatisticsActivity.class);
@@ -115,37 +119,33 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
                 System.exit(0);
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
-//ПЕРЕПИСАТЬ
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_CODE_NEW_TASK) {
-                // int taskId = data.getExtras().getInt("taskId");
-                updateTaskListView();
-            } else if (requestCode == REQUEST_CODE_UDPATE_TASK) {
-                // int taskId = data.getExtras().getInt("taskId");
-                updateTaskListView();
-            }
-        }
-    }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == RESULT_OK) {
+//            if (requestCode == REQUEST_CODE_NEW_TASK) {
+//                // int taskId = data.getExtras().getInt("taskId");
+//                updateTaskListView();
+//            } else if (requestCode == REQUEST_CODE_UDPATE_TASK) {
+//                // int taskId = data.getExtras().getInt("taskId");
+//                updateTaskListView();
+//            }
+//        }
+//    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        // Inflate the context menu from the resource file
         getMenuInflater().inflate(R.menu.menu_task_item, menu);
 
-        menu.setHeaderTitle("Select action");
+        menu.setHeaderTitle("Выберите действие");
         menu.setHeaderIcon(R.drawable.ic_icon_task);
 
-        // Get the clicked item
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         Task clickedItem = dataSource.getTask(cursorAdapter.getItemId(info.position));
 
-        // Set visibility of the "done" action of the context menu
         if (clickedItem.isDone()) {
             menu.findItem(R.id.context_menu_set_done).setVisible(false);
             menu.findItem(R.id.context_menu_set_undone).setVisible(true);
@@ -157,26 +157,21 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
-    /**
-     * Deletes a certain task via a dialog to prevent deleting accidentally.
-     *
-     * @param taskId
-     */
     private void deleteTask(final long taskId) {
         AlertDialog.Builder alert = new AlertDialog.Builder(
                 TaskListActivity.this);
-        alert.setTitle("Delete task");
-        alert.setMessage("Are you sure to delete the task?");
-        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alert.setTitle("Удалить задачу");
+        alert.setMessage("Вы уверены, что хотите удалить задачу?");
+        alert.setPositiveButton("ДА", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dataSource.deleteTask(taskId);
-                Snackbar.make(listViewTasks, "Task has been deleted.", Snackbar.LENGTH_LONG);
+                Snackbar.make(listViewTasks, "Задача удалена", Snackbar.LENGTH_LONG);
                 updateTaskListView();
                 dialog.dismiss();
             }
         });
-        alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton("НЕТ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -196,7 +191,6 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
             case R.id.context_menu_delete_item:
                 long taskId = cursorAdapter.getItemId(itemInfo.position);
                 deleteTask(taskId);
-                // Add snackbar to undo this step
                 return true;
             case R.id.context_menu_set_done:
                 Task changedTask = DataSource.cursorToTask((Cursor) cursorAdapter.getItem(itemInfo.position));
@@ -205,7 +199,7 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
                     dataSource.updateTask(changedTask);
                     updateTaskListView();
                 } else {
-                    Log.e(LOGTAG, "Not able to set task to done, no task found.");
+                    Log.e(LOGTAG, "Не удалось установить задачу как выполненную, задача не найдена.");
                 }
                 return true;
             case R.id.context_menu_archive:
@@ -218,7 +212,6 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
                 Task original = DataSource.cursorToTask((Cursor) cursorAdapter.getItem(itemInfo.position));
                 dataSource.createTask(original);
                 updateTaskListView();
-                // Add snackbar to undo this step
                 return true;
             case R.id.context_menu_set_undone:
                 Task changedTask1 = DataSource.cursorToTask((Cursor) cursorAdapter.getItem(itemInfo.position));
@@ -227,7 +220,6 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
                 updateTaskListView();
                 return true;
         }
-
         return super.onContextItemSelected(item);
     }
 
@@ -244,15 +236,16 @@ public class TaskListActivity extends AppCompatActivity implements TaskListCurso
     }
 
     public void addNewTask(View view) {
-        // Open new activity and add new task
         Intent intent = new Intent(this, NewTaskActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_NEW_TASK);
+        someActivityResultLauncher.launch(intent);
+        //startActivityForResult(intent, REQUEST_CODE_NEW_TASK);
     }
 
     @Override
     public void onEditButtonClick(long id) {
         Intent intent = new Intent(this, EditTaskActivity.class);
         intent.putExtra("taskId", id);
-        startActivityForResult(intent, REQUEST_CODE_UDPATE_TASK);
+        someActivityResultLauncher.launch(intent);
+        //startActivityForResult(intent, REQUEST_CODE_UDPATE_TASK);
     }
 }

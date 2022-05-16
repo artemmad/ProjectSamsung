@@ -20,9 +20,6 @@ import com.example.tasktrack.models.Task;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Mathias on 20/02/2016.
- */
 public class TaskListCursorAdapter extends CursorAdapter implements View.OnCreateContextMenuListener {
     private static final String LOGTAG = "TASKTRACKER";
     private LayoutInflater cursorInflater;
@@ -66,8 +63,6 @@ public class TaskListCursorAdapter extends CursorAdapter implements View.OnCreat
             holder = (ViewHolder) view.getTag();
         }
 
-        // Set background color of task
-        //relativeLayout.setBackgroundColor(task.getColor());
         holder.populateRow(task);
 
         holder.editButton.setOnClickListener(new View.OnClickListener() {
@@ -111,11 +106,6 @@ public class TaskListCursorAdapter extends CursorAdapter implements View.OnCreat
         RelativeLayout layout;
         ImageButton editButton;
 
-        /**
-         * Initialize the holder.
-         *
-         * @param view The view to populate the objects from.
-         */
         public ViewHolder(View view) {
             name = (TextView) view.findViewById(R.id.tvName);
             timeDone = (TextView) view.findViewById(R.id.tvTimeDone);
@@ -125,37 +115,18 @@ public class TaskListCursorAdapter extends CursorAdapter implements View.OnCreat
         }
 
         public void populateRow(Task task) {
-            // Populate the data into the template view using the data object
             name.setText(task.getName());
 
-            // Get time done in hours and minutes
             long hours = TimeUnit.SECONDS.toHours(task.getTimeDone());
             long remainMinute = TimeUnit.SECONDS.toMinutes(task.getTimeDone()) - TimeUnit.HOURS.toMinutes(hours);
             String result = String.format("%01d", hours) + "h " + String.format("%01d", remainMinute) + "m";
             timeDone.setText(result);
-
-            // TODO: first create table for subtasks
-//            // Get subtask status
-//            int amountSubTasks = 0;
-//            int amountFinishedSubtasks = 0;
-//            if (task.getSubTasks() != null) {
-//                amountSubTasks = task.getSubTasks().size();
-//
-//                for (SubTask subTask : task.getSubTasks()) {
-//                    if (subTask.isDone()) {
-//                        amountFinishedSubtasks++;
-//                    }
-//                }
-//            }
-//
-//            status.setText(String.format("%d/%d Subtasks done", amountFinishedSubtasks, amountSubTasks));
 
             if (task.getDescription() == null || task.getDescription().isEmpty()) {
                 status.setText(R.string.task_item_description_empty);
             } else {
                 status.setText(task.getDescription());
             }
-            // Set opacity of task
             if (task.isDone()) {
                 layout.setAlpha((float) 0.5);
                 layout.setBackgroundColor(0);
@@ -170,7 +141,6 @@ public class TaskListCursorAdapter extends CursorAdapter implements View.OnCreat
         }
     }
 
-    //http://www.c-sharpcorner.com/UploadFile/9e8439/create-custom-listener-on-button-in-listitem-listview-in-a/
     public interface Callback {
         void onEditButtonClick(long id);
     }
